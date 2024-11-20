@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.pizzeria.model.Pizza;
+import org.lessons.pizzeria.model.SpecialOffers;
 import org.lessons.pizzeria.repository.PizzaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,19 @@ public class PizzasController {
     redirectAttributes.addFlashAttribute("deleteMsg", "Pizza deleted");
 
     return "redirect:/pizzas";
+  }
+
+  @GetMapping("/{id}/specialOffers")
+  public String create(@PathVariable Long id, Model model) {
+
+    Pizza pizzaById = pizzaRepo.findById(id).get();
+
+    SpecialOffers specialOffers = new SpecialOffers();
+    specialOffers.setPizza(pizzaById);
+
+    model.addAttribute("specialOffers", specialOffers);
+
+    return "/specialOffers/create";
   }
 
 }

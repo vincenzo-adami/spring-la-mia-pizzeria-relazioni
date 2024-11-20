@@ -9,13 +9,13 @@
 
     <div class="container">
       <div class="row">
-        <div class="col" th:object="${pizza}">
+        <div class="col-12 py-3" th:object="${pizza}">
           <h1 th:text="*{name}"></h1>
           <dl>
             <dt></dt>
             <dd>
               <img
-                class="w-50"
+                class="h-50"
                 th:src="@{${pizza.photoUrl}}"
                 th:alt="${pizza.name}"
               />
@@ -28,9 +28,77 @@
             ></dd>
           </dl>
         </div>
-        <div class="container mt-auto">
+        <div class="col-12 py-3" th:if="${!pizza.specialOffers.isEmpty()}">
+          <div th:if="${successMsg != null}">
+            <div
+              class="alert alert-success alert-dismissible fade show"
+              role="alert"
+            >
+              <span th:text="${successMsg}"></span>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+          </div>
+          <div th:if="${updateMsg != null}">
+            <div
+              class="alert alert-success alert-dismissible fade show"
+              role="alert"
+            >
+              <span th:text="${updateMsg}"></span>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+          </div>
+          <h2>Special Offers</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Stating date</th>
+                <th>Eding date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="specialOffers : ${pizza.specialOffers}">
+                <td th:text="${specialOffers.title}"></td>
+                <td th:text="${specialOffers.startingDate}"></td>
+                <td th:text="${specialOffers.endingDate}"></td>
+                <td>
+                  <a
+                    th:href="@{/specialOffers/edit/{id} (id=${specialOffers.id})}"
+                    class="btn btn-primary"
+                    ><i class="fa fa-edit"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          class="alert alert-warning"
+          role="alert"
+          th:if="${pizza.specialOffers.isEmpty()}"
+        >
+          There are no special offers for this pizza
+        </div>
+        <div class="col-12 mt-auto">
           <a class="btn btn-primary" th:href="@{${pizzaUrl}}" role="button">
             Back to pizzas
+          </a>
+          <a
+            th:href="@{/pizzas/{id}/specialOffers (id=${pizza.id})}"
+            class="btn btn-primary"
+          >
+            Add a Special Offers
           </a>
         </div>
       </div>

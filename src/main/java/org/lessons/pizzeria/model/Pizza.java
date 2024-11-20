@@ -1,9 +1,12 @@
 package org.lessons.pizzeria.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,8 +37,19 @@ public class Pizza {
   @Positive(message = "Price must be greater than 0")
   private Double price;
 
+  @OneToMany(mappedBy = "pizza")
+  private List<SpecialOffers> specialOffers;
+
   public Long getId() {
     return id;
+  }
+
+  public List<SpecialOffers> getSpecialOffers() {
+    return specialOffers;
+  }
+
+  public void setSpecialOffers(List<SpecialOffers> specialOffers) {
+    this.specialOffers = specialOffers;
   }
 
   public void setId(Long id) {
