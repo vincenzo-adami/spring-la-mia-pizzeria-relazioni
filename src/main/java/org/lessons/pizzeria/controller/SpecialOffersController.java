@@ -2,7 +2,7 @@ package org.lessons.pizzeria.controller;
 
 import java.util.Optional;
 
-import org.lessons.pizzeria.model.SpecialOffers;
+import org.lessons.pizzeria.model.SpecialOffer;
 import org.lessons.pizzeria.repository.PizzaRepository;
 import org.lessons.pizzeria.repository.SpecialOffersRepository;
 
@@ -30,7 +30,7 @@ public class SpecialOffersController {
   PizzaRepository pizzaRepository;
 
   @PostMapping("/store")
-  public String store(@Valid @ModelAttribute(name = "specialOffers") SpecialOffers specialOffersForm,
+  public String store(@Valid @ModelAttribute(name = "specialOffers") SpecialOffer specialOffersForm,
       BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
     Long pizzaID = specialOffersForm.getPizza().getId();
@@ -49,7 +49,7 @@ public class SpecialOffersController {
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Long id, Model model) {
-    Optional<SpecialOffers> specialOffersById = specialOffersRepository.findById(id);
+    Optional<SpecialOffer> specialOffersById = specialOffersRepository.findById(id);
 
     if (specialOffersById.isPresent()) {
       model.addAttribute("specialOffers", specialOffersById.get());
@@ -59,7 +59,7 @@ public class SpecialOffersController {
   }
 
   @PostMapping("/edit/{id}")
-  public String update(@Valid @ModelAttribute("specialOffers") SpecialOffers formSpecialOffers,
+  public String update(@Valid @ModelAttribute("specialOffers") SpecialOffer formSpecialOffers,
       BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
     if (bindingResult.hasErrors()) {

@@ -41,7 +41,7 @@ public class Pizza {
   private Double price;
 
   @OneToMany(mappedBy = "pizza")
-  private List<SpecialOffers> specialOffers;
+  private List<SpecialOffer> specialOffers;
 
   @ManyToMany()
   @JoinTable(name = "pizza_ingredient", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
@@ -59,11 +59,11 @@ public class Pizza {
     return id;
   }
 
-  public List<SpecialOffers> getSpecialOffers() {
+  public List<SpecialOffer> getSpecialOffers() {
     return specialOffers;
   }
 
-  public void setSpecialOffers(List<SpecialOffers> specialOffers) {
+  public void setSpecialOffers(List<SpecialOffer> specialOffers) {
     this.specialOffers = specialOffers;
   }
 

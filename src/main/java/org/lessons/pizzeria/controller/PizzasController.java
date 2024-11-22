@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.pizzeria.model.Pizza;
-import org.lessons.pizzeria.model.SpecialOffers;
+import org.lessons.pizzeria.model.SpecialOffer;
 import org.lessons.pizzeria.repository.PizzaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,7 +129,7 @@ public class PizzasController {
 
     Pizza pizzaById = pizzaRepo.findById(id).get();
 
-    SpecialOffers specialOffers = new SpecialOffers();
+    SpecialOffer specialOffers = new SpecialOffer();
     specialOffers.setPizza(pizzaById);
 
     model.addAttribute("specialOffers", specialOffers);
