@@ -82,7 +82,7 @@ public class PizzasController {
 
     pizzaRepo.save(formPizza);
 
-    redirectAttributes.addFlashAttribute("successMsg", "Pizza created");
+    redirectAttributes.addFlashAttribute("successMsg", "Pizza create");
 
     return "redirect:/pizzas";
 
@@ -110,7 +110,7 @@ public class PizzasController {
 
     pizzaRepo.save(formEditPizza);
 
-    redirectAttributes.addFlashAttribute("updateMsg", "Pizza updated");
+    redirectAttributes.addFlashAttribute("updateMsg", "Pizza update");
 
     return "redirect:/pizzas";
   }

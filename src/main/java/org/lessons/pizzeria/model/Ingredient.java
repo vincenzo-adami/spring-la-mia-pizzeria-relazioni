@@ -19,7 +19,7 @@ public class Ingredient {
 
   @NotBlank(message = "Title cannot be null")
   @Column(unique = true)
-  private String title;
+  private String name;
 
   @ManyToMany(mappedBy = "ingredients")
   private List<Pizza> pizzas;
@@ -32,12 +32,12 @@ public class Ingredient {
     this.id = id;
   }
 
-  public String getTitle() {
-    return title;
+  public String getName() {
+    return name;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setName(String name) {
+    this.name = name;
   }
 
 }
