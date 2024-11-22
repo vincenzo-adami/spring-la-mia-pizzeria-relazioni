@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.pizzeria.model.Ingredient;
+import org.lessons.pizzeria.model.Pizza;
 import org.lessons.pizzeria.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,6 +94,23 @@ public class IngredientsController {
 
     ingredientRepo.save(formEditIngredient);
     redirectAttributes.addFlashAttribute("updateMsg", "Ingredient Update");
+
+    return "redirect:/ingredients";
+  }
+
+  @PostMapping("/delete/{id}")
+  public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+    Ingredient ingredient = ingredientRepo.findById(id).get();
+
+    for (Pizza pizza : ingredient.getPizzas()) {
+
+      pizza.getIngredients().remove(ingredient);
+
+    }
+
+    ingredientRepo.deleteById(id);
+    redirectAttributes.addFlashAttribute("deleteMsg", "Ingredient delete");
 
     return "redirect:/ingredients";
   }

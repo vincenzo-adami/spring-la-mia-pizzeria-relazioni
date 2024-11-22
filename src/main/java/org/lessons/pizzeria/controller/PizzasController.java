@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.lessons.pizzeria.model.Pizza;
 import org.lessons.pizzeria.model.SpecialOffer;
+import org.lessons.pizzeria.repository.IngredientRepository;
 import org.lessons.pizzeria.repository.PizzaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class PizzasController {
 
   @Autowired
   private PizzaRepository pizzaRepo;
+
+  @Autowired
+  private IngredientRepository ingredientRepo;
 
   @GetMapping
   public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
@@ -68,6 +72,7 @@ public class PizzasController {
   public String create(Model model) {
 
     model.addAttribute("pizza", new Pizza());
+    model.addAttribute("allIngredients", ingredientRepo.findAll());
 
     return "pizzas/create";
   }
@@ -95,6 +100,7 @@ public class PizzasController {
 
     if (pizzaById.isPresent()) {
       model.addAttribute("pizza", pizzaById.get());
+      model.addAttribute("allIngredients", ingredientRepo.findAll());
     }
 
     return "pizzas/edit";
@@ -105,6 +111,7 @@ public class PizzasController {
       BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
     if (bindingResult.hasErrors()) {
+      model.addAttribute("allIngredients", ingredientRepo.findAll());
       return "pizzas/edit";
     }
 
