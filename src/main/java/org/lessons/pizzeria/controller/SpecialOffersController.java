@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.lessons.pizzeria.model.SpecialOffer;
 import org.lessons.pizzeria.repository.PizzaRepository;
-import org.lessons.pizzeria.repository.SpecialOffersRepository;
+import org.lessons.pizzeria.repository.SpecialOfferRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SpecialOffersController {
 
   @Autowired
-  SpecialOffersRepository specialOffersRepository;
+  SpecialOfferRepository specialOfferRepository;
 
   @Autowired
   PizzaRepository pizzaRepository;
@@ -39,7 +39,7 @@ public class SpecialOffersController {
       return "/pizzas/{" + pizzaID + "}/specialOffers";
     }
 
-    specialOffersRepository.save(specialOffersForm);
+    specialOfferRepository.save(specialOffersForm);
 
     redirectAttributes.addFlashAttribute("successMsg", "Special Offers created");
 
@@ -49,7 +49,7 @@ public class SpecialOffersController {
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Long id, Model model) {
-    Optional<SpecialOffer> specialOffersById = specialOffersRepository.findById(id);
+    Optional<SpecialOffer> specialOffersById = specialOfferRepository.findById(id);
 
     if (specialOffersById.isPresent()) {
       model.addAttribute("specialOffers", specialOffersById.get());
@@ -66,7 +66,7 @@ public class SpecialOffersController {
       return "/specialOffers/edit";
     }
 
-    specialOffersRepository.save(formSpecialOffers);
+    specialOfferRepository.save(formSpecialOffers);
 
     redirectAttributes.addFlashAttribute("updateMsg", "Special Offers updated");
 
